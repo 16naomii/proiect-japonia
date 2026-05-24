@@ -1,262 +1,250 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Descoperă Japonia</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mini Wikipedia - Japonia</title>
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      font-family: Arial, sans-serif;
-    }
+<style>
+body{
+  margin:0;
+  font-family:Arial;
+  background:#f7f7f7;
+}
 
-    body {
-      background: linear-gradient(to bottom, #fff0f5, #ffe4ec);
-      color: #333;
-      overflow-x: hidden;
-    }
+/* HEADER */
+header{
+  background:#d63384;
+  color:white;
+  text-align:center;
+  padding:40px;
+  font-size:40px;
+  font-weight:bold;
+}
 
-    header {
-      height: 100vh;
-      background: url('https://images.unsplash.com/photo-1528360983277-13d401cdc186?q=80&w=1600&auto=format&fit=crop') center/cover no-repeat;
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      text-align: center;
-    }
+/* GRID */
+.cards{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(240px,1fr));
+  gap:20px;
+  padding:30px;
+}
 
-    header::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: rgba(0,0,0,0.4);
-    }
+.card{
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+  cursor:pointer;
+  box-shadow:0 2px 10px rgba(0,0,0,0.15);
+  transition:0.3s;
+}
 
-    .hero {
-      position: relative;
-      z-index: 2;
-      color: white;
-      padding: 20px;
-    }
+.card:hover{
+  transform:scale(1.03);
+}
 
-    .hero h1 {
-      font-size: 70px;
-      margin-bottom: 20px;
-      text-shadow: 2px 2px 10px black;
-    }
+.card img{
+  width:100%;
+  height:150px;
+  object-fit:cover;
+}
 
-    .hero p {
-      font-size: 24px;
-    }
+.card h3{
+  margin:10px;
+  color:#d63384;
+}
 
-    nav {
-      position: fixed;
-      top: 0;
-      width: 100%;
-      background: rgba(255,255,255,0.9);
-      backdrop-filter: blur(5px);
-      padding: 15px;
-      display: flex;
-      justify-content: center;
-      gap: 30px;
-      z-index: 999;
-    }
+.card p{
+  margin:10px;
+  font-size:14px;
+  color:#444;
+}
 
-    nav a {
-      text-decoration: none;
-      color: #d63384;
-      font-weight: bold;
-      transition: 0.3s;
-    }
+/* ARTICOLE */
+.article{
+  display:none;
+  padding:40px;
+  background:white;
+  max-width:900px;
+  margin:30px auto;
+  border-radius:10px;
+  box-shadow:0 2px 10px rgba(0,0,0,0.15);
+}
 
-    nav a:hover {
-      color: #ff69b4;
-    }
+.article.active{
+  display:block;
+}
 
-    section {
-      padding: 80px 10%;
-    }
+.article h2{
+  color:#d63384;
+  text-align:center;
+}
 
-    h2 {
-      text-align: center;
-      color: #d63384;
-      margin-bottom: 30px;
-      font-size: 40px;
-    }
+.article p{
+  font-size:18px;
+  line-height:1.8;
+  text-align:justify;
+}
 
-    .cards {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-      gap: 25px;
-    }
+button{
+  display:block;
+  margin:30px auto;
+  padding:10px 20px;
+  background:#d63384;
+  color:white;
+  border:none;
+  border-radius:10px;
+  cursor:pointer;
+}
 
-    .card {
-      background: white;
-      border-radius: 20px;
-      overflow: hidden;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-      transition: 0.3s;
-    }
+/* SAKURA */
+.petal{
+  position:fixed;
+  top:-10px;
+  width:12px;
+  height:12px;
+  background:pink;
+  border-radius:50% 50% 50% 0;
+  opacity:0.7;
+  animation:fall linear infinite;
+}
 
-    .card:hover {
-      transform: translateY(-10px);
-    }
-
-    .card img {
-      width: 100%;
-      height: 220px;
-      object-fit: cover;
-    }
-
-    .card-content {
-      padding: 20px;
-    }
-
-    .card-content h3 {
-      color: #d63384;
-      margin-bottom: 10px;
-    }
-
-    footer {
-      background: #d63384;
-      color: white;
-      text-align: center;
-      padding: 20px;
-      margin-top: 50px;
-    }
-
-    /* Sakura petals animation */
-    .petal {
-      position: fixed;
-      top: -10px;
-      width: 15px;
-      height: 15px;
-      background: pink;
-      border-radius: 50% 50% 50% 0;
-      opacity: 0.7;
-      animation: fall linear infinite;
-    }
-
-    @keyframes fall {
-      0% {
-        transform: translateY(-10px) rotate(0deg);
-      }
-      100% {
-        transform: translateY(110vh) rotate(360deg);
-      }
-    }
-  </style>
+@keyframes fall{
+  to{transform:translateY(110vh) rotate(360deg);}
+}
+</style>
 </head>
 
 <body>
 
-  <nav>
-    <a href="#despre">Despre</a>
-    <a href="#orase">Orașe</a>
-    <a href="#cultura">Cultură</a>
-  </nav>
+<header>🇯🇵 Mini Wikipedia - Japonia 🌸</header>
 
-  <header>
-    <div class="hero">
-      <h1>Descoperă Japonia</h1>
-      <p>Țara tehnologiei, tradițiilor și florilor de cireș 🌸</p>
-    </div>
-  </header>
+<!-- CARDURI -->
+<div class="cards">
 
-  <section id="despre">
-    <h2>Despre Japonia</h2>
-    <p style="text-align:center; font-size:20px;">
-      Japonia este una dintre cele mai fascinante țări din lume,
-      combinând tradițiile antice cu tehnologia modernă.
-      Este celebră pentru temple, anime, sushi și copacii Sakura.
-    </p>
-  </section>
+<div class="card" onclick="openA('relief')">
+<img src="https://images.unsplash.com/photo-1500382017468-9049fed747ef">
+<h3>Relief</h3>
+<p>Munți, vulcani și teren accidentat</p>
+</div>
 
-  <section id="orase">
-    <h2>Orașe Celebre</h2>
+<div class="card" onclick="openA('clima')">
+<img src="https://images.unsplash.com/photo-1500530855697-b586d89ba3ee">
+<h3>Climă</h3>
+<p>De la rece la tropical</p>
+</div>
 
-    <div class="cards">
+<div class="card" onclick="openA('veg')">
+<img src="https://images.unsplash.com/photo-1505761671935-60b3a7427bad">
+<h3>Vegetație</h3>
+<p>Păduri și Sakura</p>
+</div>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?q=80&w=1200&auto=format&fit=crop">
-        <div class="card-content">
-          <h3>Tokyo</h3>
-          <p>Capitala Japoniei, renumită pentru zgârie-nori și viața de noapte.</p>
-        </div>
-      </div>
+<div class="card" onclick="openA('hidro')">
+<img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e">
+<h3>Hidrografie</h3>
+<p>Râuri rapide și lacuri</p>
+</div>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1493976040374-85c8e12f0c0e?q=80&w=1200&auto=format&fit=crop">
-        <div class="card-content">
-          <h3>Kyoto</h3>
-          <p>Oraș plin de temple tradiționale și grădini japoneze superbe.</p>
-        </div>
-      </div>
+<div class="card" onclick="openA('curio')">
+<img src="https://images.unsplash.com/photo-1492571350019-22de08371fd3">
+<h3>Curiozități</h3>
+<p>Insule și cutremure</p>
+</div>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1526481280695-3c4691f8d3c6?q=80&w=1200&auto=format&fit=crop">
-        <div class="card-content">
-          <h3>Osaka</h3>
-          <p>Celebru pentru mâncare, luminile neon și cultura modernă.</p>
-        </div>
-      </div>
+<div class="card" onclick="openA('turism')">
+<img src="https://images.unsplash.com/photo-1549692520-acc6669e2f0c">
+<h3>Turism</h3>
+<p>Temple și orașe moderne</p>
+</div>
 
-    </div>
-  </section>
+<div class="card" onclick="openA('pers')">
+<img src="https://images.unsplash.com/photo-1516321497487-e288fb19713f">
+<h3>Personalități</h3>
+<p>Miyazaki și Kurosawa</p>
+</div>
 
-  <section id="cultura">
-    <h2>Cultura Japoneză</h2>
+</div>
 
-    <div class="cards">
+<!-- ARTICOLE -->
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1513407030348-c983a97b98d8?q=80&w=1200&auto=format&fit=crop">
-        <div class="card-content">
-          <h3>Sakura</h3>
-          <p>Florile de cireș simbolizează frumusețea și fragilitatea vieții.</p>
-        </div>
-      </div>
+<div id="relief" class="article">
+<h2>Relieful Japoniei</h2>
+<p>
+Japonia este o țară în mare parte muntoasă. Aproximativ 75% din suprafață este acoperită de munți. Muntele Fuji este cel mai cunoscut simbol natural. Țara se află în Cercul de Foc al Pacificului, ceea ce duce la numeroase cutremure și erupții vulcanice. Câmpiile sunt puține dar foarte populate. Relieful influențează agricultura și viața oamenilor. Peisajele sunt spectaculoase și foarte turistice. Japonia are multe regiuni montane impresionante.
+</p>
+<button onclick="closeA()">Înapoi</button>
+</div>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1554797589-7241bb691973?q=80&w=1200&auto=format&fit=crop">
-        <div class="card-content">
-          <h3>Sushi</h3>
-          <p>Una dintre cele mai cunoscute specialități culinare japoneze.</p>
-        </div>
-      </div>
+<div id="clima" class="article">
+<h2>Clima Japoniei</h2>
+<p>
+Clima Japoniei variază de la nord la sud. Nordul este rece și are ierni cu zăpadă. Sudul este subtropical și cald. Vara este foarte umedă și ploioasă. Taifunurile sunt frecvente în sezonul cald. Primăvara este faimoasă pentru Sakura. Toamna aduce culori spectaculoase. Clima influențează agricultura și viața zilnică.
+</p>
+<button onclick="closeA()">Înapoi</button>
+</div>
 
-      <div class="card">
-        <img src="https://images.unsplash.com/photo-1524413840807-0c3cb6fa808d?q=80&w=1200&auto=format&fit=crop">
-        <div class="card-content">
-          <h3>Temple</h3>
-          <p>Templele japoneze oferă liniște și o conexiune profundă cu tradiția.</p>
-        </div>
-      </div>
+<div id="veg" class="article">
+<h2>Vegetația și Fauna</h2>
+<p>
+Japonia are păduri dese de bambus, pini și cireși Sakura. Fauna include urși, vulpi și maimuțe japoneze. În zonele montane trăiesc specii rare. Oceanul este bogat în pești. Natura este foarte protejată. Există multe parcuri naționale. Sakura este simbolul național. Biodiversitatea este foarte bogată.
+</p>
+<button onclick="closeA()">Înapoi</button>
+</div>
 
-    </div>
-  </section>
+<div id="hidro" class="article">
+<h2>Hidrografia</h2>
+<p>
+Râurile Japoniei sunt scurte și rapide. Cel mai lung râu este Shinano. Există multe lacuri vulcanice. Lacul Biwa este cel mai mare. Apa este importantă pentru agricultură. Hidroenergia este utilizată des. Oceanul Pacific influențează clima. Pescuitul este o activitate majoră.
+</p>
+<button onclick="closeA()">Înapoi</button>
+</div>
 
-  <footer>
-    © 2026 - Site despre Japonia 🌸
-  </footer>
+<div id="curio" class="article">
+<h2>Curiozități</h2>
+<p>
+Japonia are peste 6800 de insule. Există mii de cutremure anual. Muntele Fuji este sacru. Tokyo este un megapolis uriaș. Trenurile Shinkansen sunt extrem de rapide. Cultura combină tradiția și tehnologia. Japonia este foarte avansată tehnologic. Este una dintre cele mai sigure țări.
+</p>
+<button onclick="closeA()">Înapoi</button>
+</div>
 
-  <script>
-    // Creează petale Sakura animate
-    for(let i = 0; i < 30; i++) {
-      let petal = document.createElement("div");
-      petal.classList.add("petal");
+<div id="turism" class="article">
+<h2>Obiective Turistice</h2>
+<p>
+Tokyo Tower este simbol modern. Muntele Fuji este atracție naturală. Fushimi Inari are porți roșii spectaculoase. Kyoto este orașul templelor. Osaka este oraș modern și vibrant. Nara are cerbi liberi. Hiroshima are monumente istorice. Japonia are atracții unice.
+</p>
+<button onclick="closeA()">Înapoi</button>
+</div>
 
-      petal.style.left = Math.random() * 100 + "vw";
-      petal.style.animationDuration = (5 + Math.random() * 10) + "s";
-      petal.style.opacity = Math.random();
+<div id="pers" class="article">
+<h2>Personalități</h2>
+<p>
+Hayao Miyazaki este creatorul Studio Ghibli. El a făcut filme animate celebre în întreaga lume. Akira Kurosawa este un regizor legendar. Filmele lui au influențat Hollywood-ul. Ambii sunt foarte importanți pentru cultura japoneză. Au adus Japonia în cinematografia mondială. Sunt respectați global. Reprezintă arta japoneză.
+</p>
+<button onclick="closeA()">Înapoi</button>
+</div>
 
-      document.body.appendChild(petal);
-    }
-  </script>
+<script>
+function openA(id){
+  document.querySelectorAll('.article').forEach(a=>a.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo({top:200,behavior:'smooth'});
+}
+
+function closeA(){
+  document.querySelectorAll('.article').forEach(a=>a.classList.remove('active'));
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+
+/* SAKURA ANIMATION */
+for(let i=0;i<20;i++){
+  let p=document.createElement("div");
+  p.classList.add("petal");
+  p.style.left=Math.random()*100+"vw";
+  p.style.animationDuration=(5+Math.random()*10)+"s";
+  document.body.appendChild(p);
+}
+</script>
 
 </body>
 </html>
